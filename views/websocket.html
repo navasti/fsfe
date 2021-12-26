@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>websocket</title>
+	<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      font-size: 10px;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .message {
+      color: mediumseagreen;
+    }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Hell0 <span class="message"></span></h1>
+		<button>click</button>
+	</div>
+	<script>
+		const socket = new WebSocket('ws://pawelszostak.com/websocket');
+		const message = document.querySelector('.message');
+		const btn = document.querySelector('button');
+		btn.onclick = () => socket.send('test');
+		socket.addEventListener('open', (e) => socket.send('Hello Server!'));
+		socket.addEventListener('message', (event) => {
+			if (event.data) message.textContent = event.data;
+		});
+	</script>
+</body>
+</html>
